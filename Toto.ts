@@ -1,0 +1,51 @@
+export class Toto {
+
+    nevek1: string[] = [];
+    nevek2: string[] = [];
+    golok1: number[] = [];
+    golok2: number[] = [];
+
+    ujEredmeny(csapat1: string, csapat2: string, gol1: number, gol2: number): void{
+        if (this.nevek1.length == 15) {
+            throw new Error("Megvan a 14 meccs");
+        }
+        if(csapat1 == "" || csapat2 == "") {
+            throw new Error("Nem lehet üres a csapat(ok) neve")
+        }
+        if(gol1 < 0 || gol2 < 0) {
+            throw new Error("Nem lehet a gól száma 0-nál kisebb")
+        }
+    }
+
+    merkozesEredmeny(id: number): string {
+        return `${this.golok1[id]}-${this.golok2[id]}`
+    }
+
+    merkozesCsapatok(id: number): string {
+        return `${this.nevek1[id]}-${this.nevek2[id]}`
+    }
+
+    szelvenytEllenoriz(szelveny: string[]): number {
+        let talalatok = 0;
+        for (let i = 0; i < this.golok1.length; i++)
+        {
+            if (szelveny[i] != "1" || szelveny[i] != "2" || szelveny[i] != "X")
+            {
+                throw new Error("Nem helyesen kitöltött szelvény")
+            }
+            else {
+                if (this.golok1 > this.golok2 && szelveny[i] == "1")
+                {
+                    talalatok++;
+                }
+                else if (this.golok2 > this.golok1 && szelveny[i] == "2") {
+                    talalatok++;
+                }
+                else if (this.golok1 == this.golok2 && szelveny[i] == "X") {
+                    talalatok++;
+                }
+            }
+        }
+        return talalatok;
+    }
+}
