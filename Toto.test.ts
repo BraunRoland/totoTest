@@ -25,4 +25,13 @@ describe("Toto", () => {
         const toto1 = new Toto;
         expect(() =>toto1.ujEredmeny("asdf","asd",-1,2)).toThrow();
     })
-})
+});
+
+describe("Kírás", () => {
+    test("Eredmény kiírása", () => {
+        expect(toto.merkozesEredmeny(1)).toBe("1-3");
+    })
+    test("Csapatok kiírása", () => {
+        expect(toto.merkozesCsapatok(1)).toBe("Honvéd-UTE");
+    })
+});
