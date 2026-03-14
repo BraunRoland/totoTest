@@ -31,21 +31,25 @@ export class Toto {
 
     szelvenytEllenoriz(szelveny: string[]): number {
         let talalatok = 0;
-        for (let i = 0; i < this.golok1.length; i++)
+        if(szelveny.length != 14)
         {
-            if (szelveny[i] != "1" || szelveny[i] != "2" || szelveny[i] != "X")
+            throw new Error("14 fogadásnak kell lennie");
+        }
+        for (let i = 0; i < szelveny.length; i++)
+        {
+            if (szelveny[i] != "1" && szelveny[i] != "2" && szelveny[i] != "X")
             {
                 throw new Error("Nem helyesen kitöltött szelvény")
             }
             else {
-                if (this.golok1 > this.golok2 && szelveny[i] == "1")
+                if (this.golok1[i]! > this.golok2[i]! && szelveny[i] == "1")
                 {
                     talalatok++;
                 }
-                else if (this.golok2 > this.golok1 && szelveny[i] == "2") {
+                else if (this.golok2[i]! > this.golok1[i]! && szelveny[i] == "2") {
                     talalatok++;
                 }
-                else if (this.golok1 == this.golok2 && szelveny[i] == "X") {
+                else if (this.golok1[i] == this.golok2[i] && szelveny[i] == "X") {
                     talalatok++;
                 }
             }
