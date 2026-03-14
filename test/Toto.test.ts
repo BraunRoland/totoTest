@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { Toto } from "./Toto.js";
+import { Toto } from "../src/Toto.ts";
 
 let toto: Toto;
 beforeEach(() => {
