@@ -1,8 +1,15 @@
-form{
+.container{
   text-align: center;
   justify-content: center;
+  background-color: rgb(202, 202, 202);
+  margin-top: 15px;
+  margin-bottom: 25px;
+  border-radius: 13px;
 }
 
 form {
-  background-color: rgb(202, 202, 202);
+  margin-bottom: 10px;
+}
+.bal{
+  border-right: 1px solid black;
 }

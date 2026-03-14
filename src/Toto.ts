@@ -54,6 +54,7 @@ export class Toto {
                 }
             }
         }
+        console.log(talalatok);
         return talalatok;
     }
 }
