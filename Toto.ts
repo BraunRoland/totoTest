@@ -6,15 +6,19 @@ export class Toto {
     golok2: number[] = [];
 
     ujEredmeny(csapat1: string, csapat2: string, gol1: number, gol2: number): void{
-        if (this.nevek1.length == 15) {
+        if (this.nevek1.length == 14) {
             throw new Error("Megvan a 14 meccs");
         }
-        if(csapat1 == "" || csapat2 == "") {
+        else if(csapat1 == "" || csapat2 == "") {
             throw new Error("Nem lehet üres a csapat(ok) neve")
         }
-        if(gol1 < 0 || gol2 < 0) {
+        else if(gol1 < 0 || gol2 < 0) {
             throw new Error("Nem lehet a gól száma 0-nál kisebb")
         }
+        this.nevek1.push(csapat1);
+        this.nevek2.push(csapat2);
+        this.golok1.push(gol1);
+        this.golok2.push(gol2);
     }
 
     merkozesEredmeny(id: number): string {
