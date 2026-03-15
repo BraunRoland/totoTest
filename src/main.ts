@@ -37,6 +37,22 @@ function submitForm(e: SubmitEvent): void
         eredmenyGeneralas();
       }
       eredmenyek();
+      const resultHTML = document.getElementsByClassName("result") as HTMLCollectionOf<HTMLHeadingElement>;
+      console.log(toto.results)
+      for (let elem of resultHTML)
+      {
+        console.log(elem.classList)
+        if(toto.results.includes(elem.className))
+        {
+          elem.innerHTML += " &#9989;"
+        }
+        else
+        {
+          elem.innerHTML += " &#10060;"
+        }
+      }
+      // &#9989; - pipa
+      // &#10060; - x
     }
   }
   catch(err) 
@@ -89,6 +105,7 @@ function eredmenyek(): void
       meccs.textContent = `${i+1}. Meccs:`;
     }
     const ered = document.createElement("h3") as HTMLDivElement;  
+    ered.setAttribute("class",`result ${i}`);
     ered.textContent = `${csapatok}: ${golok}`
     kiiras.appendChild(row);
     row.appendChild(col1);

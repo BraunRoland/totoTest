@@ -46,12 +46,15 @@ export class Toto {
                 if (this.golok1[i]! > this.golok2[i]! && szelveny[i] == "1")
                 {
                     talalatok++;
+                    this.results.push(`result ${i}`)
                 }
                 else if (this.golok2[i]! > this.golok1[i]! && szelveny[i] == "2") {
                     talalatok++;
+                    this.results.push(`result ${i}`)
                 }
                 else if (this.golok1[i] == this.golok2[i] && szelveny[i] == "X") {
                     talalatok++;
+                    this.results.push(`result ${i}`)
                 }
             }
         }
