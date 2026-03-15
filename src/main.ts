@@ -4,12 +4,13 @@ let valaszok: string[] = [];
 const csapatok: string[] = ["Győri ETO", "Fradi", "Debrecen", "Zalaegerszeg", "Kisvárda", "Paks", "Puskás Akadémia", "UTE", "Nyíregyháza", "MTK","Diósgyőr", "Kazincbarcika"]
 let toto: Toto;
 let kiiras = document.getElementById("eredmenyek") as HTMLDivElement;
+const write = document.getElementById("write") as HTMLDivElement;
+const idk: string[] = [];
 
 function submitForm(e: SubmitEvent): void 
 {
   e.preventDefault();
   valaszok = [];
-  const idk: string[] = [];
   try 
   {
     for (let i = 1; i < 15; i++) 
@@ -41,7 +42,6 @@ function submitForm(e: SubmitEvent): void
       console.log(toto.results)
       for (let elem of resultHTML)
       {
-        console.log(elem.classList)
         if(toto.results.includes(elem.className))
         {
           elem.innerHTML += " &#9989;"
@@ -51,6 +51,12 @@ function submitForm(e: SubmitEvent): void
           elem.innerHTML += " &#10060;"
         }
       }
+      for (let elem of idk)
+      {
+        const rb = document.getElementById(elem) as HTMLInputElement;
+        rb.checked = false;
+      }
+      kiiras.scrollIntoView({ behavior: 'smooth'});
       // &#9989; - pipa
       // &#10060; - x
     }
@@ -79,12 +85,7 @@ function eredmenyGeneralas(): void
 
 function eredmenyek(): void 
 {
-  console.log(toto.golok1);
-  console.log(toto.golok2);
-  console.log(toto.nevek1);
-  console.log(toto.nevek2);
-  console.log(valaszok);
-  console.log(toto.golok1.length);
+  kiiras.innerHTML = "";
   for(let i = 0; i < toto.golok1.length; i++)
   {
     const csapatok = toto.merkozesCsapatok(i)
@@ -117,13 +118,12 @@ function eredmenyek(): void
   row.setAttribute("class","row");
   const col = document.createElement("div") as HTMLDivElement;
   col.setAttribute("class", "col-sm-12");
-  const res = document.getElementById("results") as HTMLDivElement;
   const talal = document.createElement("h3") as HTMLHeadingElement;
   talal.textContent ="Találatok: " + toto.szelvenytEllenoriz(valaszok);
   kiiras.appendChild(row);
   row.appendChild(col);
   col.appendChild(talal);
-  kiiras.hidden = false;
+  write.hidden = false;
 }
 
 function errKiiras(msg: string): void 
@@ -133,7 +133,7 @@ function errKiiras(msg: string): void
 
 function init(): void 
 {
-  kiiras.hidden = true;
+  write.hidden = true;
 };
 
 document.addEventListener("DOMContentLoaded", init);
