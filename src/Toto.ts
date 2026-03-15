@@ -4,6 +4,7 @@ export class Toto {
     nevek2: string[] = [];
     golok1: number[] = [];
     golok2: number[] = [];
+    results: string[] = [];
 
     ujEredmeny(csapat1: string, csapat2: string, gol1: number, gol2: number): void{
         if (this.nevek1.length == 14) {
@@ -54,7 +55,6 @@ export class Toto {
                 }
             }
         }
-        console.log(talalatok);
         return talalatok;
     }
 }

@@ -3,6 +3,7 @@ import { Toto } from "./Toto.ts";
 let valaszok: string[] = [];
 const csapatok: string[] = ["Győri ETO", "Fradi", "Debrecen", "Zalaegerszeg", "Kisvárda", "Paks", "Puskás Akadémia", "UTE", "Nyíregyháza", "MTK","Diósgyőr", "Kazincbarcika"]
 let toto: Toto;
+let kiiras = document.getElementById("eredmenyek") as HTMLDivElement;
 
 function submitForm(e: SubmitEvent): void 
 {
@@ -30,7 +31,12 @@ function submitForm(e: SubmitEvent): void
     }
     else
     {
-      eredmenyGeneralas();
+      toto = new Toto;
+      for (let i = 0; i < 14; i++)
+      {
+        eredmenyGeneralas();
+      }
+      eredmenyek();
     }
   }
   catch(err) 
@@ -45,42 +51,28 @@ function submitForm(e: SubmitEvent): void
 function eredmenyGeneralas(): void 
 {
   console.log("belep");
-  let csapat1 = csapatok[Math.floor(Math.random()*csapatok.length-1)];
+  let csapat1 = csapatok[Math.floor(Math.random()*csapatok.length)];
   let csapat2;
   do {
-    csapat2 = csapatok[Math.floor(Math.random()*csapatok.length-1)];
+    csapat2 = csapatok[Math.floor(Math.random()*csapatok.length)];
   } while (csapat1 == csapat2)
   let gol1 = Math.floor(Math.random() * 8);
-  let gol2;
-  do {
-    gol2 = Math.floor(Math.random() * 8);
-  } while (gol1 == gol2)
-  toto = new Toto;
-  toto.ujEredmeny(csapat1!,csapat2!,gol1,gol2)
-  ellenorzes();
-}
-
-function ellenorzes() 
-{
-  try
-  {
-    toto.szelvenytEllenoriz(valaszok);
-    eredmenyek();
-  } catch (err)
-  {
-    if (err instanceof Error)
-    {
-      errKiiras(err.message);
-    }
-  }
+  let gol2 = Math.floor(Math.random() * 8);
+  toto.ujEredmeny(csapat1!,csapat2!,gol1,gol2);
 }
 
 function eredmenyek(): void 
 {
-  let kiiras = document.getElementById("eredmenyek") as HTMLDivElement;
+  console.log(toto.golok1);
+  console.log(toto.golok2);
+  console.log(toto.nevek1);
+  console.log(toto.nevek2);
+  console.log(valaszok);
   console.log(toto.golok1.length);
   for(let i = 0; i < toto.golok1.length; i++)
   {
+    const csapatok = toto.merkozesCsapatok(i)
+    const golok = toto.merkozesEredmeny(i)
     const row = document.createElement("div") as HTMLDivElement;
     row.setAttribute("class","row");
     const col1 = document.createElement("div") as HTMLDivElement;
@@ -97,13 +89,24 @@ function eredmenyek(): void
       meccs.textContent = `${i+1}. Meccs:`;
     }
     const ered = document.createElement("h3") as HTMLDivElement;  
-    ered.textContent = `${toto.merkozesCsapatok(i)}: ${toto.merkozesEredmeny(i)}`
+    ered.textContent = `${csapatok}: ${golok}`
     kiiras.appendChild(row);
     row.appendChild(col1);
     row.appendChild(col2);
     col1.appendChild(meccs);
-    col2.appendChild(ered);    
+    col2.appendChild(ered);   
   }
+  const row = document.createElement("div") as HTMLDivElement;
+  row.setAttribute("class","row");
+  const col = document.createElement("div") as HTMLDivElement;
+  col.setAttribute("class", "col-sm-12");
+  const res = document.getElementById("results") as HTMLDivElement;
+  const talal = document.createElement("h3") as HTMLHeadingElement;
+  talal.textContent ="Találatok: " + toto.szelvenytEllenoriz(valaszok);
+  kiiras.appendChild(row);
+  row.appendChild(col);
+  col.appendChild(talal);
+  kiiras.hidden = false;
 }
 
 function errKiiras(msg: string): void 
@@ -113,7 +116,7 @@ function errKiiras(msg: string): void
 
 function init(): void 
 {
-
+  kiiras.hidden = true;
 };
 
 document.addEventListener("DOMContentLoaded", init);
